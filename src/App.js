@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import "./App.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 
 import { ThemeContext, theme } from "./utils/context/theme-context";
 import Banner from "./components/Banner";
@@ -17,27 +17,29 @@ import img2 from "./assets/img_5.png";
 import img3 from "./assets/img_6.png";
 import img4 from "./assets/img_7.png";
 // import articleImg2 from "../src/assets/img_2.jpg"
-
+import { initialState, showArticleReducer } from "./store/reducers";
 const App = () => {
 	// const showArticle = true;
-	const [showArticle, setShowArticle] = useState(true);
+	// const [showArticle, setShowArticle] = useState(true);
 	const [changeTheme, setTheme] = useState("light");
+	const [state, dispatch2] = useReducer(showArticleReducer, initialState)
 
 	useEffect(() => {
-		console.log(`initial value of showArticle is`, showArticle);
-	}, [showArticle]);
+		console.log(`initial value of showArticle is`, state);
+	}, [state]);
 
 	const greeting = () => {
 		// alert("email submitted");
 		// setShowArticle(!showArticle);
-		setTheme(changeTheme == "light" ? "dark" : "light");
+		setTheme(changeTheme === "light" ? "dark" : "light");
+		dispatch2(({type: `${state}`}));
 	};
 	return (
 		<ThemeContext.Provider value={theme[changeTheme]}>
 			<div className="App">
 				<Banner img={banner} />
-				{showArticle && <Article1 img={articleImg1} />}
-				{showArticle && <Article2 img={articleImg2} />}
+				 <Article1 img={articleImg1} state={state} />
+				 {state && <Article2 img={articleImg2} />}
 				<Horizontal images={[img1, img2, img3, img4]} />
 				<Newsletter greetingFn={greeting} />
 			</div>
