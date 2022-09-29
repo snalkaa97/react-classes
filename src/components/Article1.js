@@ -1,8 +1,13 @@
-import React from "react";
+import { useContext } from "react";
+import { ThemeContext } from "../utils/context/theme-context";
 
 const Article1 = (props) => {
+	const theme = useContext(ThemeContext);
 	return (
-		<div className="article article-1">
+		<div
+			className="article article-1"
+			style={{ backgroundColor: theme.background, color: theme.color }}
+		>
 			<div className="image-wrapper">
 				<img src={props.img} alt="" className="image" />
 			</div>
