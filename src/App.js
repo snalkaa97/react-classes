@@ -22,24 +22,24 @@ const App = () => {
 	// const showArticle = true;
 	// const [showArticle, setShowArticle] = useState(true);
 	const [changeTheme, setTheme] = useState("light");
-	const [state, dispatch2] = useReducer(showArticleReducer, initialState)
+	const [state, dispatch2] = useReducer(showArticleReducer, initialState);
 
 	useEffect(() => {
-		console.log(`initial value of showArticle is`, state);
+		// console.log(`initial value of showArticle is`, state);
 	}, [state]);
 
 	const greeting = () => {
 		// alert("email submitted");
 		// setShowArticle(!showArticle);
 		setTheme(changeTheme === "light" ? "dark" : "light");
-		dispatch2(({type: `${state}`}));
+		dispatch2({ type: `${state}` });
 	};
 	return (
 		<ThemeContext.Provider value={theme[changeTheme]}>
 			<div className="App">
 				<Banner img={banner} />
-				 <Article1 img={articleImg1} state={state} />
-				 {state && <Article2 img={articleImg2} />}
+				<Article1 img={articleImg1} state={state} />
+				{state && <Article2 img={articleImg2} />}
 				<Horizontal images={[img1, img2, img3, img4]} />
 				<Newsletter greetingFn={greeting} />
 			</div>
